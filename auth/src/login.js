@@ -1,6 +1,5 @@
 const bcrypt = require('bcrypt');
-require('dotenv').config()
-const secretKey = process.env.SECRET_KEY;
+const db = require('./database');
 let users = {}; // emulate database
 
 module.exports.handler = async (event, context) => {
@@ -21,9 +20,7 @@ module.exports.handler = async (event, context) => {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   // TODO: Store user in the database
-  users[username] = {
-    password: hashedPassword,
-  };
+  await db.none('INSERT INTO users(username, password) VALUES($1, $2)', [username, hashedPassword]);
 
   return {
     statusCode: 200,

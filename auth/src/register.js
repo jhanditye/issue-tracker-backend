@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const db = require('./database');
 const jwt = require('jsonwebtoken');
 require('dotenv').config()
 const jwtSecretKey = process.env.JWT_SECRET_KEY;
@@ -9,7 +10,7 @@ module.exports.handler = async (event, context) => {
   const { username, password } = requestBody;
 
   // Check if user exists in the database
-  const user = users[username];
+  const user = await db.one('SELECT * FROM users WHERE username = $1', [username]);
   if (!user) {
     return {
       statusCode: 401,
