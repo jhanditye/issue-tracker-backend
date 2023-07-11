@@ -1,7 +1,0 @@
-functions:
-  register:
-    handler: auth/src/register.handler
-    events:
-      - http:
-          path: register
-          method: post

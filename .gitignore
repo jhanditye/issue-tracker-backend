@@ -1,2 +1,9 @@
-node_modules/
+
+__pycache__/
+
+# dotenv environment variables file
 .env
+
+# virtualenv
+venv/
+
