@@ -1,5 +1,3 @@
-from .config import settings
-
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -9,7 +7,8 @@ import psycopg2
 
 from app import models
 from .config import settings 
-'''
+
+
 while True:
     try:
         # should never be hard-coding these value in here
@@ -39,6 +38,3 @@ def get_db():
         yield db
     finally:
         db.close()
-'''
-
-Base = declarative_base()
