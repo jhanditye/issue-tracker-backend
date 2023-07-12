@@ -38,7 +38,6 @@ class TokenData(BaseModel):
 class IssueBase(BaseModel):
     title: str
     content: str
-    published: bool = True 
 
 class IssueCreate(IssueBase):
     pass
