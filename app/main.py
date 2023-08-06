@@ -11,8 +11,7 @@ app = FastAPI()
 
 @app.get("/")
 def hello_world():
-    return {"hello":"lit"}
-
+    return {"hello":"world of docker"}
 
 
 app.include_router(auth.router)
