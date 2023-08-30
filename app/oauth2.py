@@ -14,7 +14,7 @@ from app import database, schemas
 #SECRET KEY
 #ALgorithm
 #EXPIration TIME
-
+ 
 def create_access_token(data: dict):
     to_encode = data.copy()
     expire = datetime.utcnow() + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
