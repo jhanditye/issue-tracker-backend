@@ -5,9 +5,8 @@ from psycopg2.extras import RealDictCursor
 import time
 import psycopg2
 
-from app import models
-from .config import settings 
 
+from .config import settings 
 
 while True:
     try:
@@ -38,3 +37,4 @@ def get_db():
         yield db
     finally:
         db.close()
+

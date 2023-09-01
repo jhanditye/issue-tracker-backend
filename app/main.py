@@ -1,14 +1,18 @@
 from fastapi import FastAPI
 
 from fastapi import Depends, FastAPI, Response,status,HTTPException
-from app import models, schemas,utils
-from .database import get_db, engine
+#from app import models, schemas,utils
+from .routers import issue, user,auth
 from .routers import issue, user,auth
 
 from fastapi import FastAPI
+
 from fastapi.middleware.cors import CORSMiddleware
 
+
 app = FastAPI()
+
+
 
 # Add CORS middleware
 app.add_middleware(
@@ -23,7 +27,6 @@ app.add_middleware(
 @app.get("/")
 def hello_world():
     return {"hello":"world of docker"}
-
 
 app.include_router(auth.router)
 app.include_router(user.router)
