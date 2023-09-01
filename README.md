@@ -1,64 +1,58 @@
+# Issue Tracker Backend with FastAPI
 
-# Issue Tracker App - Backend
+This project provides backend support for an issue tracker application, using FastAPI. Features include user authentication, issue handling, and user management.
 
-The backend of the Issue Tracker App provides the API endpoints and database management for the app using FastAPI. It handles user authentication, project creation, and issue management functionalities.
+## Table of Contents
 
-## Installation
-
-1. Clone the repository:
-
-```bash
-git clone https://github.com/your-username/issue-tracker-backend.git
-```
-
-2. Navigate to the project directory:
-
-```bash
-cd issue-tracker-backend
-```
-
-3. Install the required dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-4. Set up the database:
-
-- Update the database connection settings in the `.env` file.
-
-5. Start the backend server:
-
-```bash
-uvicorn app.main:app --reload
-```
-
-The backend server will start running at `http://localhost:8000`.
-
-## API Documentation
-
-The API documentation is available at `http://localhost:8000/docs`. You can explore the available endpoints, view request/response schemas, and test the API using the interactive documentation.
+- [Endpoints](#endpoints)
+  - [Authentication](#authentication)
+  - [Issues](#issues)
+  - [Users](#users)
+- [Setup and Running](#setup-and-running)
+  - [Requirements](#requirements)
+  - [Instructions](#instructions)
 
 ## Endpoints
 
-The following endpoints are available:
+### Authentication
 
-- `POST /api/register`: Register a new user.
-- `POST /api/login`: Log in and obtain an access token.
-- `GET /api/projects`: Retrieve a list of projects.
-- `POST /api/projects`: Create a new project.
-- `GET /api/projects/{id}`: Retrieve details of a specific project.
-- `PUT /api/projects/{id}`: Update an existing project.
-- `DELETE /api/projects/{id}`: Delete a project.
-- `GET /api/issues`: Retrieve a list of issues.
-- `POST /api/issues`: Create a new issue.
-- `GET /api/issues/{id}`: Retrieve details of a specific issue.
-- `PUT /api/issues/{id}`: Update an existing issue.
-- `DELETE /api/issues/{id}`: Delete an issue.
+- `POST /login`: Authenticate user and retrieve an access token.
 
-## Technologies Used
+### Issues
 
-- Python
-- FastAPI
-- PostgreSQL
+- `GET /issues`: List issues with an optional search query.
+- `POST /issues`: Create a new issue.
+- `GET /issues/{id}`: Fetch a specific issue using its ID.
+- `DELETE /issues/{id}`: Delete a specific issue by ID.
+- `PUT /issues/{id}`: Update details of a specific issue by ID.
 
+### Users
+
+- `POST /users`: Register a new user.
+
+## Setup and Running
+
+### Requirements
+
+- Docker
+- Docker Compose
+
+### Instructions
+
+1. **Clone the Repository**
+
+   ```bash
+   git clone https://github.com/jhanditye/issue-tracker-backend.git
+   ```
+
+2. **Configure Environment**
+
+   Create a `.env` file in the root directory and populate it with the necessary configurations(database config).
+
+3. **Run the Application with Docker Compose**
+
+   ```bash
+   docker-compose -f docker-compose-dev.yml up
+   ```
+
+This starts the FastAPI application on port 8001 and initializes a PostgreSQL database.
