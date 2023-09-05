@@ -30,7 +30,7 @@ def create_issue(
     current_user: int = Depends(oauth2.get_current_user),
     db: Session = Depends(get_db)
 ):
-    new_issue = models.Issue(owner_id=current_user['id'], **issue.dict())
+    new_issue = models.Issue(assigned_user_id=current_user['id'], **issue.dict())
     db.add(new_issue)
     db.commit()
     return new_issue

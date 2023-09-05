@@ -2,8 +2,7 @@ from fastapi import FastAPI
 
 from fastapi import Depends, FastAPI, Response,status,HTTPException
 #from app import models, schemas,utils
-from .routers import issue, user,auth
-from .routers import issue, user,auth
+from .routers import issue, user,auth,teams
 
 from fastapi import FastAPI
 
@@ -31,3 +30,4 @@ def hello_world():
 app.include_router(auth.router)
 app.include_router(user.router)
 app.include_router(issue.router)
+app.include_router(teams.router)

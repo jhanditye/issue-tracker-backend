@@ -15,7 +15,7 @@ class UserOut(BaseModel):
     created_at: datetime 
 
     class Config:
-        # would need this blcok here if you were using an ORM where the response comes back as a model and not a tuple which is listable
+        # would need this block here if you were using an ORM where the response comes back as a model and not a tuple which is listable
         orm_mode = True
 
 
@@ -46,11 +46,33 @@ class IssueCreate(IssueBase):
  
 class Issue(IssueBase):
     created_at: datetime
-    owner_id: int
-    owner: UserOut
+    assigned_user_id: int
+    assigned_user: UserOut
 
     class Config:
-        # would need this blcok here if you were using an ORM where the response comes back as a model and not a tuple which is listable
+        # would need this block here if you were using an ORM where the response comes back as a model and not a tuple which is listable
         orm_mode = True
 
 
+# Teams 
+
+class TeamCreate(BaseModel):
+    name: str
+    description: str
+
+class TeamOut(BaseModel):
+    id: int
+    name: str
+    description: str 
+
+    class Config:
+        # would need this block here if you were using an ORM where the response comes back as a model and not a tuple which is listable
+        orm_mode = True
+
+
+class UserTeamAssociation(BaseModel):
+    user_id: int
+    team_id: int
+
+    class Config:
+        orm_mode = True

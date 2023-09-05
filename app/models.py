@@ -29,9 +29,9 @@ class Issue(Base):
     title = Column(String, nullable=False)
     content = Column(String, nullable=False)
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
-    assigned_user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    assigned_user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
     assigned_user = relationship("User", back_populates="issues")
-    team_id = Column(Integer, ForeignKey("teams.id", ondelete="CASCADE"), nullable=False)
+    team_id = Column(Integer, ForeignKey("teams.id", ondelete="CASCADE"))
     team = relationship("Team", back_populates="issues")
 
 class Team(Base):
