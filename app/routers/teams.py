@@ -40,7 +40,7 @@ def join_team(
 
     association_data = {"user_id": current_user['id'], "team_id": team_id}
     db.execute(models.user_team_association_table.insert().values(**association_data))
-
+    db.commit()
     # As you're returning an association in the response, 
     # I'm returning the association_data here. 
     # You might need to adjust the response model or the returned data 
@@ -52,15 +52,18 @@ def join_team(
 def list_teams(
     current_user: int = Depends(oauth2.get_current_user),
     db: Session = Depends(get_db),
-    search: Optional[str] = ""
 ):
-    # Using an association table or direct many-to-many field in ORM, 
-    # you would retrieve the teams for a user.
-    teams = db.query(models.Team).join(models.UserTeamAssociation).filter(
-        models.UserTeamAssociation.user_id == current_user['id']
+    # Using the association table, retrieve the teams for a user.
+    teams = db.query(models.Team).join(
+        models.user_team_association_table
+    ).filter(
+        models.user_team_association_table.c.user_id == current_user['id']
     )
 
-    if search:
-        teams = teams.filter(models.Team.name.contains(search))
-
     return teams.all()
+
+
+@router.get("/associations", status_code=status.HTTP_200_OK)
+def get_all_associations(db: Session = Depends(get_db)):
+    associations = db.query(models.user_team_association_table).all()
+    return [{"user_id": assoc.user_id, "team_id": assoc.team_id} for assoc in associations]
