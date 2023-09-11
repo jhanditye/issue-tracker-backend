@@ -28,22 +28,6 @@ class Token(BaseModel):
 class TokenData(BaseModel):
     id: Optional[str] = None
 
-# Handles direction of user sending data to us 
-class IssueBase(BaseModel):
-    title: str
-    content: str
-
-class IssueCreate(IssueBase):
-    pass
-
-# Handles direction of us sending data to user
-class Issue(IssueBase):
-    created_at: datetime
-    assigned_user_id: int
-    assigned_user: UserOut
-
-    class Config:
-        orm_mode = True
 
 # Projects 
 class ProjectCreate(BaseModel):
@@ -61,6 +45,26 @@ class ProjectOut(BaseModel):
 class UserProjectAssociation(BaseModel):
     user_id: int
     project_id: int
+
+    class Config:
+        orm_mode = True
+
+
+# Handles direction of user sending data to us 
+class IssueBase(BaseModel):
+    title: str
+    content: str
+
+class IssueCreate(IssueBase):
+    pass
+
+# Handles direction of us sending data to user
+class Issue(IssueBase):
+    created_at: datetime
+    assigned_user_id: int
+    assigned_user: UserOut
+    project_id: int
+    project: ProjectOut
 
     class Config:
         orm_mode = True

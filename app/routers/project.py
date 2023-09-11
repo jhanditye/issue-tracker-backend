@@ -58,3 +58,15 @@ def list_projects(
     )
 
     return projects.all()
+
+
+@router.get("/{project_id}/users", response_model=List[schemas.UserOut])
+def list_users_in_project(
+    project_id: int,
+    db: Session = Depends(get_db)
+):
+    project = db.query(models.Project).filter(models.Project.id == project_id).first()
+    if not project:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, detail=f"No project found with ID: {project_id}")
+
+    return project.users
