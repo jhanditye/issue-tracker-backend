@@ -1,9 +1,7 @@
 from datetime import datetime
 from typing import Optional
 
-from pydantic import  BaseModel, EmailStr
-
-
+from pydantic import BaseModel, EmailStr
 
 class UserCreate(BaseModel):
     email: EmailStr
@@ -15,11 +13,9 @@ class UserOut(BaseModel):
     created_at: datetime 
 
     class Config:
-        # would need this blcok here if you were using an ORM where the response comes back as a model and not a tuple which is listable
         orm_mode = True
 
-
-## Login
+# Login
 
 class UserLogin(BaseModel):
     email: EmailStr
@@ -31,10 +27,30 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     id: Optional[str] = None
-    
+
+
+# Projects 
+class ProjectCreate(BaseModel):
+    name: str
+    description: str
+
+class ProjectOut(BaseModel):
+    id: int
+    name: str
+    description: str 
+
+    class Config:
+        orm_mode = True
+
+class UserProjectAssociation(BaseModel):
+    user_id: int
+    project_id: int
+
+    class Config:
+        orm_mode = True
+
 
 # Handles direction of user sending data to us 
-
 class IssueBase(BaseModel):
     title: str
     content: str
@@ -43,14 +59,17 @@ class IssueCreate(IssueBase):
     pass
 
 # Handles direction of us sending data to user
- 
 class Issue(IssueBase):
+    id:int
     created_at: datetime
-    owner_id: int
-    owner: UserOut
+    assigned_user_id: int
+    assigned_user: UserOut
+    project_id: int
+    project: ProjectOut
 
     class Config:
-        # would need this blcok here if you were using an ORM where the response comes back as a model and not a tuple which is listable
         orm_mode = True
 
 
+class IssueAssignment(BaseModel):
+    user_id: int
