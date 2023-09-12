@@ -60,6 +60,7 @@ class IssueCreate(IssueBase):
 
 # Handles direction of us sending data to user
 class Issue(IssueBase):
+    id:int
     created_at: datetime
     assigned_user_id: int
     assigned_user: UserOut
@@ -68,3 +69,7 @@ class Issue(IssueBase):
 
     class Config:
         orm_mode = True
+
+
+class IssueAssignment(BaseModel):
+    user_id: int
